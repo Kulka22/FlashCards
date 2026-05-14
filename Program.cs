@@ -1,7 +1,16 @@
+using FlashCards.Models;
+using Microsoft.EntityFrameworkCore;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+
+string connection = builder.Configuration.GetConnectionString("DefaultConnection");
+
+builder.Services.AddDbContext<CardContext>(options => options.UseNpgsql(connection));
+
+builder.Services.AddTransient<ICardRepository, EFRepository>();
 
 var app = builder.Build();
 
