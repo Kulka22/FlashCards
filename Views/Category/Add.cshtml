@@ -1,0 +1,33 @@
+﻿@model FlashCards.Models.Category
+
+@{
+    ViewData["Title"] = "Добавить категорию";
+}
+
+<h1>Добавить категорию</h1>
+
+<p>
+    <a href="/">На главную</a> |
+    <a href="/Category/All">Все категории</a>
+</p>
+
+@if (ViewBag.Error != null)
+{
+    <p style="color:red">@ViewBag.Error</p>
+}
+
+<form method="post" action="/Category/Add">
+    <p>
+        <label>Название</label><br />
+        <input type="text" name="Title" value="@Model.Title" />
+    </p>
+
+    <p>
+        <label>Описание</label><br />
+        <textarea name="Description" rows="5" cols="40">@Model.Description</textarea>
+    </p>
+
+    <p>
+        <input type="submit" value="Добавить" />
+    </p>
+</form>

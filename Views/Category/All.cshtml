@@ -1,0 +1,53 @@
+﻿@model List<FlashCards.Models.Category>
+
+@{
+    ViewData["Title"] = "Все категории";
+}
+
+<h1>Все категории</h1>
+
+<p>
+    <a href="/">На главную</a> |
+    <a href="/Category/Add">Добавить категорию</a> |
+    <a href="/Card/All">Все карточки</a>
+</p>
+
+<p>
+    Сортировка:
+    <a href="/Category/All?sort=Id">по Id</a> |
+    <a href="/Category/All?sort=Title">по названию</a>
+</p>
+
+<p>
+    Ограничение:
+    <a href="/Category/All?n=0">все</a> |
+    <a href="/Category/All?n=5">5</a> |
+    <a href="/Category/All?n=10">10</a>
+</p>
+
+<p>
+    Текущая сортировка: @ViewData["Sort"] <br />
+    Текущее ограничение: @ViewData["N"]
+</p>
+
+<table border="1" cellpadding="5">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Название</th>
+            <th>Описание</th>
+            <th>Количество карточек</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var category in Model)
+        {
+            <tr>
+                <td>@category.Id</td>
+                <td>@category.Title</td>
+                <td>@category.Description</td>
+                <td>@category.Cards.Count</td>
+            </tr>
+        }
+    </tbody>
+</table>
