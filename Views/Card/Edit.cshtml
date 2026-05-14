@@ -1,0 +1,58 @@
+﻿@model FlashCards.Models.Card
+
+@{
+    ViewData["Title"] = "Редактировать карточку";
+    var categories = ViewBag.Categories as List<FlashCards.Models.Category>;
+}
+
+<h1>Редактировать карточку</h1>
+
+<p>
+    <a href="/">На главную</a> |
+    <a href="/Card/All">Все карточки</a>
+</p>
+
+<form method="post" action="/Card/Edit">
+    <input type="hidden" name="Id" value="@Model.Id" />
+
+    <p>
+        <label>Слово</label><br />
+        <input type="text" name="Word" value="@Model.Word" />
+    </p>
+
+    <p>
+        <label>Переводы</label><br />
+        <textarea name="translationsText" rows="5" cols="40">@string.Join("\n", Model.Translations)</textarea><br />
+        <small>Каждый перевод вводи с новой строки.</small>
+    </p>
+
+    <p>
+        <label>Примеры</label><br />
+        <textarea name="examplesText" rows="5" cols="40">@string.Join("\n", Model.Examples)</textarea><br />
+        <small>Каждый пример вводи с новой строки.</small>
+    </p>
+
+    <p>
+        <label>Категория</label><br />
+        <select name="CategoryId">
+            @if (categories != null)
+            {
+                foreach (var category in categories)
+                {
+                    if (category.Id == Model.CategoryId)
+                    {
+                        <option value="@category.Id" selected>@category.Title</option>
+                    }
+                    else
+                    {
+                        <option value="@category.Id">@category.Title</option>
+                    }
+                }
+            }
+        </select>
+    </p>
+
+    <p>
+        <input type="submit" value="Сохранить" />
+    </p>
+</form>

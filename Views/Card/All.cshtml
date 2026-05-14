@@ -41,6 +41,7 @@
             <th>Переводы</th>
             <th>Примеры</th>
             <th>Категория</th>
+            <th>Действия</th>
         </tr>
     </thead>
     <tbody>
@@ -52,6 +53,10 @@
                 <td>@string.Join(", ", card.Translations)</td>
                 <td>@string.Join("; ", card.Examples)</td>
                 <td>@card.Category?.Title</td>
+                <td>
+                    <a href="/Card/Details/@card.Id">Подробнее</a> |
+                    <a href="/Card/Edit/@card.Id">Редактировать</a>
+                </td>
             </tr>
         }
     </tbody>

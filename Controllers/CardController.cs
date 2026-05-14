@@ -33,6 +33,17 @@ namespace FlashCards.Controllers
             return View(cards.ToList());
         }
 
+        public IActionResult Details(int id)
+        {
+            Card? card = _repo.GetAllCards()
+                .FirstOrDefault(card => card.Id == id);
+
+            if (card == null)
+                return NotFound();
+
+            return View(card);
+        }
+
         public IActionResult Index()
         {
             return View();
@@ -72,6 +83,32 @@ namespace FlashCards.Controllers
                 .Select(i => i.Trim())
                 .Where(i => i.Length > 0)
                 .ToList();
+        }
+
+        [HttpGet]
+        public IActionResult Edit(int id)
+        {
+            Card? card = _repo.GetAllCards()
+                .FirstOrDefault(card => card.Id == id);
+
+            if (card == null)
+                return NotFound();
+
+            ViewBag.Categories = _repo.GetCategories().ToList();
+
+            return View(card);
+        }
+
+        [HttpPost]
+        public IActionResult Edit(Card card, string translationsText, string examplesText)
+        {
+            card.Translations = ExtractFromText(translationsText);
+
+            card.Examples = ExtractFromText(examplesText);
+
+            _repo.UpdateCard(card);
+
+            return RedirectToAction("All");
         }
     }
 }
