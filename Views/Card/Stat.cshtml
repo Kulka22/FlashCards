@@ -1,0 +1,73 @@
+﻿@{
+    ViewData["Title"] = "Статистика по карточкам";
+
+    var words = ViewData["Words"] as List<string> ?? new List<string>();
+    var translations = ViewData["Translations"] as List<string> ?? new List<string>();
+    var examples = ViewData["Examples"] as List<string> ?? new List<string>();
+    var categories = ViewData["Categories"] as List<string> ?? new List<string>();
+
+    var translationsCount = ViewData["TranslationsCount"] as int[] ?? new int[] { 0, 0 };
+    var examplesCount = ViewData["ExamplesCount"] as int[] ?? new int[] { 0, 0 };
+}
+
+<h1>Статистика по карточкам</h1>
+
+<p>
+    <a href="/">На главную</a> |
+    <a href="/Card/All">Все карточки</a>
+</p>
+
+<table border="1" cellpadding="5">
+    <tr>
+        <th>Общее количество карточек</th>
+        <td>@ViewData["Count"]</td>
+    </tr>
+    <tr>
+        <th>Минимальное количество переводов</th>
+        <td>@translationsCount[0]</td>
+    </tr>
+    <tr>
+        <th>Максимальное количество переводов</th>
+        <td>@translationsCount[1]</td>
+    </tr>
+    <tr>
+        <th>Минимальное количество примеров</th>
+        <td>@examplesCount[0]</td>
+    </tr>
+    <tr>
+        <th>Максимальное количество примеров</th>
+        <td>@examplesCount[1]</td>
+    </tr>
+</table>
+
+<h2>Уникальные слова</h2>
+<ul>
+    @foreach (var word in words)
+    {
+        <li>@word</li>
+    }
+</ul>
+
+<h2>Уникальные переводы</h2>
+<ul>
+    @foreach (var translation in translations)
+    {
+        <li>@translation</li>
+    }
+</ul>
+
+<h2>Уникальные примеры</h2>
+<ul>
+    @foreach (var example in examples)
+    {
+        <li>@example</li>
+    }
+</ul>
+
+<h2>Категории карточек</h2>
+<ul>
+    @foreach (var category in categories)
+    {
+        <li>@category</li>
+    }
+</ul>

@@ -11,41 +11,64 @@
     <a href="/Card/All">Все карточки</a>
 </p>
 
-<table border="1" cellpadding="5">
+<table border="1" cellpadding="8">
     <tr>
         <th>Id</th>
         <td>@Model.Id</td>
     </tr>
+
     <tr>
         <th>Слово</th>
         <td>@Model.Word</td>
     </tr>
+
     <tr>
         <th>Переводы</th>
         <td>@string.Join(", ", Model.Translations)</td>
     </tr>
+
     <tr>
         <th>Примеры</th>
         <td>
-            <ul>
-                @foreach (var example in Model.Examples)
-                {
-                    <li>@example</li>
-                }
-            </ul>
+            @if (Model.Examples.Count == 0)
+            {
+                <span>Примеры отсутствуют</span>
+            }
+            else
+            {
+                <ul>
+                    @foreach (var example in Model.Examples)
+                    {
+                        <li>@example</li>
+                    }
+                </ul>
+            }
         </td>
     </tr>
+
     <tr>
         <th>Категория</th>
         <td>
             @if (Model.Category != null)
             {
-                <p><b>@Model.Category.Title</b></p>
-                <p>@Model.Category.Description</p>
+                <table border="1" cellpadding="6">
+                    <tr>
+                        <th>Id</th>
+                        <td>@Model.Category.Id</td>
+                    </tr>
+                    <tr>
+                        <th>Название</th>
+                        <td>@Model.Category.Title</td>
+                    </tr>
+                    <tr>
+                        <th>Описание</th>
+                        <td>@Model.Category.Description</td>
+                    </tr>
+                </table>
             }
             else
             {
-                <p>Категория не найдена</p>
+                <span>Категория не найдена</span>
             }
         </td>
     </tr>

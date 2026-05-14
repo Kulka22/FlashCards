@@ -1,0 +1,98 @@
+﻿@model List<FlashCards.Models.Card>
+
+@{
+    ViewData["Title"] = "Тестирование";
+
+    var categories = ViewBag.Categories as List<FlashCards.Models.Category> ?? new List<FlashCards.Models.Category>();
+    int currentN = ViewBag.N ?? 0;
+    int currentCategoryId = ViewBag.CategoryId ?? 0;
+}
+
+<h1>Тестирование</h1>
+
+<p>
+    <a href="/">На главную</a> |
+    <a href="/Card/All">Все карточки</a>
+</p>
+
+<h2>Настройки теста</h2>
+
+<form method="get" action="/Card/Test">
+    <p>
+        <label>Количество карточек</label><br />
+        <input type="number" name="n" value="@currentN" min="0" />
+        <br />
+        <small>0 означает показать все карточки.</small>
+    </p>
+
+    <p>
+        <label>Категория</label><br />
+        <select name="categoryId">
+            @if (currentCategoryId == 0)
+            {
+                <option value="0" selected>Все категории</option>
+            }
+            else
+            {
+                <option value="0">Все категории</option>
+            }
+
+            @foreach (var category in categories)
+            {
+                if (category.Id == currentCategoryId)
+                {
+                    <option value="@category.Id" selected>@category.Title</option>
+                }
+                else
+                {
+                    <option value="@category.Id">@category.Title</option>
+                }
+            }
+        </select>
+    </p>
+
+    <p>
+        <input type="submit" value="Сформировать тест" />
+    </p>
+</form>
+
+@if (Model.Count == 0)
+{
+    <p>Нет карточек для тестирования.</p>
+}
+else
+{
+    <h2>Вопросы</h2>
+
+    <form method="post" action="/Card/Test">
+        <input type="hidden" name="n" value="@currentN" />
+        <input type="hidden" name="categoryId" value="@currentCategoryId" />
+
+        <table border="1" cellpadding="5">
+            <thead>
+                <tr>
+                    <th>Слово</th>
+                    <th>Ваш перевод</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var card in Model)
+                {
+                    <tr>
+                        <td>
+                            @card.Word
+                            <input type="hidden" name="cardIds" value="@card.Id" />
+                        </td>
+                        <td>
+                            <input type="text" name="answers" />
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+
+        <p>
+            <input type="submit" value="Проверить" />
+        </p>
+    </form>
+}

@@ -1,8 +1,38 @@
 ﻿@{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "Главная";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
+<h1>FlashCards</h1>
+
+<p>Приложение для запоминания слов на иностранном языке и проведения тестирования.</p>
+
+<h2>Основные разделы:</h2>
+
+<ul>
+    <li>
+        <a href="/Card/All">Работа с карточками</a>
+    </li>
+    <li>
+        <a href="/Category/All">Работа с категориями</a>
+    </li>
+    <li>
+        <a href="/Card/Test">Тестирование</a>
+    </li>
+</ul>
+
+<h2>Дополнительно</h2>
+
+<ul>
+    <li>
+        <a href="/Card/Stat">Статистика по карточкам</a>
+    </li>
+    <li>
+        <a href="/Category/Stat">Статистика по категориям</a>
+    </li>
+    <li>
+        <a href="/Card/Export?n=0&sort=Id">Экспорт карточек в формате JSON</a>
+    </li>
+    <li>
+        <a href="/Category/Export?n=0&sort=Id">Экспорт категорий в формате JSON</a>
+    </li>
+</ul>

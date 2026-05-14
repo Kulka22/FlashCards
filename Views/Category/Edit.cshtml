@@ -1,0 +1,30 @@
+﻿@model FlashCards.Models.Category
+
+@{
+    ViewData["Title"] = "Редактировать категорию";
+}
+
+<h1>Редактировать категорию</h1>
+
+<p>
+    <a href="/">На главную</a> |
+    <a href="/Category/All">Все категории</a>
+</p>
+
+<form method="post" action="/Category/Edit">
+    <input type="hidden" name="Id" value="@Model.Id" />
+
+    <p>
+        <label>Название</label><br />
+        <input type="text" name="Title" value="@Model.Title" />
+    </p>
+
+    <p>
+        <label>Описание</label><br />
+        <textarea name="Description" rows="5" cols="40">@Model.Description</textarea>
+    </p>
+
+    <p>
+        <input type="submit" value="Сохранить" />
+    </p>
+</form>

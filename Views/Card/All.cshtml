@@ -7,11 +7,11 @@
 <h1>Все карточки</h1>
 
 <p>
-    <a href="/">На главную</a>
-</p>
-
-<p>
-    <a href="/Card/Add">Добавить карточку</a>
+    <a href="/">На главную</a> |
+    <a href="/Card/Add">Добавить карточку</a> |
+    <a href="/Card/Stat">Статистика</a> |
+    <a href="/Card/Export?n=0&sort=Id">Экспорт JSON</a> |
+    <a href="/Card/Test">Тестирование</a>
 </p>
 
 <p>
@@ -38,9 +38,6 @@
         <tr>
             <th>Id</th>
             <th>Слово</th>
-            <th>Переводы</th>
-            <th>Примеры</th>
-            <th>Категория</th>
             <th>Действия</th>
         </tr>
     </thead>
@@ -50,12 +47,10 @@
             <tr>
                 <td>@card.Id</td>
                 <td>@card.Word</td>
-                <td>@string.Join(", ", card.Translations)</td>
-                <td>@string.Join("; ", card.Examples)</td>
-                <td>@card.Category?.Title</td>
                 <td>
                     <a href="/Card/Details/@card.Id">Подробнее</a> |
-                    <a href="/Card/Edit/@card.Id">Редактировать</a>
+                    <a href="/Card/Edit/@card.Id">Редактировать</a> |
+                    <a href="/Card/Remove/@card.Id">Удалить</a>
                 </td>
             </tr>
         }

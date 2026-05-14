@@ -1,0 +1,45 @@
+﻿@{
+    ViewData["Title"] = "Статистика по категориям";
+
+    var titles = ViewData["Titles"] as List<string> ?? new List<string>();
+    var descriptions = ViewData["Descriptions"] as List<string> ?? new List<string>();
+    var cardsCount = ViewData["CardsCount"] as int[] ?? new int[] { 0, 0 };
+}
+
+<h1>Статистика по категориям</h1>
+
+<p>
+    <a href="/">На главную</a> |
+    <a href="/Category/All">Все категории</a>
+</p>
+
+<table border="1" cellpadding="5">
+    <tr>
+        <th>Общее количество категорий</th>
+        <td>@ViewData["Count"]</td>
+    </tr>
+    <tr>
+        <th>Минимальное количество карточек в категории</th>
+        <td>@cardsCount[0]</td>
+    </tr>
+    <tr>
+        <th>Максимальное количество карточек в категории</th>
+        <td>@cardsCount[1]</td>
+    </tr>
+</table>
+
+<h2>Уникальные названия категорий</h2>
+<ul>
+    @foreach (var title in titles)
+    {
+        <li>@title</li>
+    }
+</ul>
+
+<h2>Уникальные описания категорий</h2>
+<ul>
+    @foreach (var description in descriptions)
+    {
+        <li>@description</li>
+    }
+</ul>

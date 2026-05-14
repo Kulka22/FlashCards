@@ -1,0 +1,63 @@
+﻿@model FlashCards.Models.Category
+
+@{
+    ViewData["Title"] = "Информация о категории";
+}
+
+<h1>Информация о категории</h1>
+
+<p>
+    <a href="/">На главную</a> |
+    <a href="/Category/All">Все категории</a> |
+    <a href="/Card/All">Все карточки</a>
+</p>
+
+<table border="1" cellpadding="5">
+    <tr>
+        <th>Id</th>
+        <td>@Model.Id</td>
+    </tr>
+    <tr>
+        <th>Название</th>
+        <td>@Model.Title</td>
+    </tr>
+    <tr>
+        <th>Описание</th>
+        <td>@Model.Description</td>
+    </tr>
+    <tr>
+        <th>Количество карточек</th>
+        <td>@Model.Cards.Count</td>
+    </tr>
+</table>
+
+<h2>Карточки этой категории</h2>
+
+@if (Model.Cards.Count == 0)
+{
+    <p>В этой категории пока нет карточек.</p>
+}
+else
+{
+    <table border="1" cellpadding="5">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Слово</th>
+                <th>Переводы</th>
+                <th>Примеры</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var card in Model.Cards)
+            {
+                <tr>
+                    <td>@card.Id</td>
+                    <td>@card.Word</td>
+                    <td>@string.Join(", ", card.Translations)</td>
+                    <td>@string.Join("; ", card.Examples)</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}

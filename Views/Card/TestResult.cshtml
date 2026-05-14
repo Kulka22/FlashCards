@@ -1,0 +1,62 @@
+﻿@model List<object>
+
+@{
+    ViewData["Title"] = "Результаты тестирования";
+
+    int correctCount = ViewBag.CorrectCount ?? 0;
+    int wrongCount = ViewBag.WrongCount ?? 0;
+    int n = ViewBag.N ?? 0;
+    int categoryId = ViewBag.CategoryId ?? 0;
+}
+
+<h1>Результаты тестирования</h1>
+
+<p>
+    <a href="/">На главную</a> |
+    <a href="/Card/Test?n=@n&categoryId=@categoryId">Пройти ещё раз</a> |
+    <a href="/Card/All">Все карточки</a>
+</p>
+
+<table border="1" cellpadding="5">
+    <tr>
+        <th>Правильных ответов</th>
+        <td>@correctCount</td>
+    </tr>
+    <tr>
+        <th>Неправильных ответов</th>
+        <td>@wrongCount</td>
+    </tr>
+</table>
+
+<h2>Подробности</h2>
+
+<table border="1" cellpadding="5">
+    <thead>
+        <tr>
+            <th>Слово</th>
+            <th>Ваш ответ</th>
+            <th>Правильные переводы</th>
+            <th>Результат</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (dynamic item in Model)
+        {
+            <tr>
+                <td>@item.Card.Word</td>
+                <td>@item.UserAnswer</td>
+                <td>@string.Join(", ", item.Card.Translations)</td>
+                <td>
+                    @if (item.IsCorrect)
+                    {
+                        <span style="color:green">Верно</span>
+                    }
+                    else
+                    {
+                        <span style="color:red">Неверно</span>
+                    }
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

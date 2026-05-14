@@ -6,9 +6,16 @@
 
 <h1>Все категории</h1>
 
+@if (TempData["Error"] != null)
+{
+    <p style="color:red">@TempData["Error"]</p>
+}
+
 <p>
     <a href="/">На главную</a> |
     <a href="/Category/Add">Добавить категорию</a> |
+    <a href="/Category/Stat">Статистика</a> |
+    <a href="/Category/Export?n=0&sort=Id">Экспорт JSON</a> |
     <a href="/Card/All">Все карточки</a>
 </p>
 
@@ -35,8 +42,7 @@
         <tr>
             <th>Id</th>
             <th>Название</th>
-            <th>Описание</th>
-            <th>Количество карточек</th>
+            <th>Действия</th>
         </tr>
     </thead>
     <tbody>
@@ -45,8 +51,11 @@
             <tr>
                 <td>@category.Id</td>
                 <td>@category.Title</td>
-                <td>@category.Description</td>
-                <td>@category.Cards.Count</td>
+                <td>
+                    <a href="/Category/Details/@category.Id">Подробнее</a> |
+                    <a href="/Category/Edit/@category.Id">Редактировать</a> |
+                    <a href="/Category/Remove/@category.Id">Удалить</a>
+                </td>
             </tr>
         }
     </tbody>
