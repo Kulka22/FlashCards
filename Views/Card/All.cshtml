@@ -1,0 +1,54 @@
+﻿@model List<FlashCards.Models.Card>
+
+@{
+    ViewData["Title"] = "Все карточки";
+}
+
+<h1>Все карточки</h1>
+
+<p>
+    <a href="/">На главную</a>
+</p>
+
+<p>
+    Сортировка:
+    <a href="/Card/All?sort=Id">по Id</a> |
+    <a href="/Card/All?sort=Word">по слову</a> |
+    <a href="/Card/All?sort=Category">по категории</a>
+</p>
+
+<p>
+    Ограничение:
+    <a href="/Card/All?n=0">все</a> |
+    <a href="/Card/All?n=5">5</a> |
+    <a href="/Card/All?n=10">10</a>
+</p>
+
+<p>
+    Текущая сортировка: @ViewData["Sort"] <br />
+    Текущее ограничение: @ViewData["N"]
+</p>
+
+<table border="1" cellpadding="5">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Слово</th>
+            <th>Переводы</th>
+            <th>Примеры</th>
+            <th>Категория</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var card in Model)
+        {
+            <tr>
+                <td>@card.Id</td>
+                <td>@card.Word</td>
+                <td>@string.Join(", ", card.Translations)</td>
+                <td>@string.Join("; ", card.Examples)</td>
+                <td>@card.Category?.Title</td>
+            </tr>
+        }
+    </tbody>
+</table>
