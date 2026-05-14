@@ -37,5 +37,41 @@ namespace FlashCards.Controllers
         {
             return View();
         }
+
+        [HttpGet]
+        public IActionResult Add()
+        {
+            ViewBag.Categories = _repo.GetCategories().ToList();
+
+            return View(new Card());
+        }
+
+        [HttpPost]
+        public IActionResult Add(Card card, string translationsText, string examplesText)
+        {
+            card.Translations = ExtractFromText(translationsText);
+
+            card.Examples = ExtractFromText(examplesText);
+
+            bool result = _repo.AddCard(card);
+
+            if (!result)
+            {
+                ViewBag.Categories = _repo.GetCategories().ToList();
+                ViewBag.Error = "Такая карточка уже существует.";
+                return View(card);
+            }
+
+            return RedirectToAction("All");
+        }
+
+        private List<string> ExtractFromText(string text)
+        {
+            return text
+                .Split('\n')
+                .Select(i => i.Trim())
+                .Where(i => i.Length > 0)
+                .ToList();
+        }
     }
 }

@@ -1,0 +1,54 @@
+﻿@model FlashCards.Models.Card
+
+@{
+    ViewData["Title"] = "Добавить карточку";
+    var categories = ViewBag.Categories as List<FlashCards.Models.Category>;
+}
+
+<h1>Добавить карточку</h1>
+
+<p>
+    <a href="/">На главную</a> |
+    <a href="/Card/All">Все карточки</a>
+</p>
+
+@if (ViewBag.Error != null)
+{
+    <p style="color:red">@ViewBag.Error</p>
+}
+
+<form method="post" action="/Card/Add">
+    <p>
+        <label>Слово</label><br />
+        <input type="text" name="Word" value="@Model.Word" />
+    </p>
+
+    <p>
+        <label>Переводы</label><br />
+        <textarea name="translationsText" rows="5" cols="40">@string.Join("\n", Model.Translations)</textarea><br />
+        <small>Каждый перевод вводи с новой строки.</small>
+    </p>
+
+    <p>
+        <label>Примеры</label><br />
+        <textarea name="examplesText" rows="5" cols="40">@string.Join("\n", Model.Examples)</textarea><br />
+        <small>Каждый пример вводи с новой строки.</small>
+    </p>
+
+    <p>
+        <label>Категория</label><br />
+        <select name="CategoryId">
+            @if (categories != null)
+            {
+                foreach (var category in categories)
+                {
+                    <option value="@category.Id">@category.Title</option>
+                }
+            }
+        </select>
+    </p>
+
+    <p>
+        <input type="submit" value="Добавить" />
+    </p>
+</form>
